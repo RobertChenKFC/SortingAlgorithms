@@ -25,28 +25,30 @@ function passBack(data, force = false) {
 onmessage = function(e) {
   const arr = e.data.arr;
   // Double selection sort starts here
-  for (let i = 0; i <= (arr.length >> 1); ++i) {
-    let maxj = 0;
-    let minj = 0;
-    for (let j = i; j < arr.length - i; ++j) {
-      if (arr[j] > arr[maxj]) {
-        maxj = j;
-      }
+  for (let i = 0; i < (arr.length >> 1); ++i) {
+    let minj = i;
+    let maxj = i;
+    for (let j = i + 1; j < arr.length - i; ++j) {
       if (arr[j] < arr[minj]) {
         minj = j;
+      }
+      if (arr[j] > arr[maxj]) {
+        maxj = j;
       }
 
       const mark = [];
       mark[j] = {r: 255, g: 0, b: 0};
       passBack({arr, mark});
     }
-
-    const t1 = arr[maxj];
-    arr[maxj] = arr[arr.length - i - 1];
-    arr[arr.length - i - 1] = t1;
-    const t2 = arr[minj];
+    const t1 = arr[minj];
     arr[minj] = arr[i];
-    arr[i] = t2;
+    arr[i] = t1;
+    if (maxj === i) {
+      maxj = minj;
+    }
+    const t2 = arr[maxj];
+    arr[maxj] = arr[arr.length - i - 1];
+    arr[arr.length - i - 1] = t2;
   }
   passBack({arr, mark: []}, true);
 };
