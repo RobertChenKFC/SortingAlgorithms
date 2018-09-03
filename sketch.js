@@ -143,7 +143,7 @@ function newWorker() {
  * p5 setup function
  */
 function setup() {
-  createCanvas(1024, 768).parent('canvas-holder');
+  createCanvas(1024, 576).parent('canvas-holder');
 
   select('#sorter').changed(() => {
     newWorker();
