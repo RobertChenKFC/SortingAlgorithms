@@ -36,7 +36,7 @@ onmessage = function(e) {
       return;
     }
 
-    const mid = Math.floor((from + to) / 2);
+    const mid = (from + to) >> 1;
     mergeSort(arr, from, mid);
     mergeSort(arr, mid + 1, to);
 

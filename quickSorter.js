@@ -48,7 +48,7 @@ onmessage = function(e) {
         arr[j] = t;
 
         const mark = [];
-        mark[p] = {r: 0, g: 255, b: 0};
+        mark[from] = {r: 0, g: 255, b: 0};
         mark[i] = {r: 255, g: 0, b: 0};
         mark[j] = {r: 255, g: 0, b: 0};
         passBack({arr, mark});

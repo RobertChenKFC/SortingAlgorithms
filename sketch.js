@@ -3,15 +3,56 @@ let drawArr;
 let drawMark;
 
 /**
- * A function that generates a shuffled array
- * @return {Number[]} - a shuffled array
+ * A function that generates a random array
+ * @return {Number[]} - a random array
  */
-function genArr() {
+function randArr() {
   const arr = [];
   for (let i = 0; i < width; ++i) {
-    arr.push(i / width * height);
+    arr.push(floor(i / width * height));
   }
   return shuffle(arr);
+}
+
+/**
+ * A function that generates an array with only 4 unique values
+ * @return {Number[]} - a few unique array
+ */
+function fewUniqueArr() {
+  const arr = [];
+  const sectionWidth = floor(width / 4);
+  const sectionHeight = floor(height / 4);
+  for (let i = 0; i < width; ++i) {
+    arr.push((floor(i / sectionWidth) + 1) * sectionHeight);
+  }
+  return shuffle(arr);
+}
+
+/**
+ * A function that generates an array with one element in wrong position
+ * @return {Number[]} - an almost sorted array
+ */
+function almostSortedArr() {
+  const arr = [];
+  for (let i = 0; i < width; ++i) {
+    arr.push(floor(i / width * height));
+  }
+  const t = arr[floor(width / 3)];
+  arr[floor(width / 3)] = arr[width - 1];
+  arr[width - 1] = t;
+  return arr;
+}
+
+/**
+ * A function that generates a reverse ordered array
+ * @return {Number[]} - a reverse ordered array
+ */
+function reversedArr() {
+  const arr = [];
+  for (let i = 0; i < width; ++i) {
+    arr.push(height - floor(i / width * height));
+  }
+  return arr;
 }
 
 /**
@@ -47,9 +88,54 @@ function newWorker() {
   case 'quickSort':
     worker = new Worker('quickSorter.js');
     break;
+  case 'radixSortBase2':
+    worker = new Worker('radixSorterBase2.js');
+    break;
+  case 'radixSortBase16':
+    worker = new Worker('radixSorterBase16.js');
+    break;
+  case 'heapSort':
+    worker = new Worker('heapSorter.js');
+    break;
+  case 'shellSortOriginal':
+    worker = new Worker('shellSorterOriginal.js');
+    break;
+  case 'shellSortMarcinCiura':
+    worker = new Worker('shellSorterMarcinCiura.js');
+    break;
+  case 'gnomeSort':
+    worker = new Worker('gnomeSorter.js');
+    break;
+  case 'bitonicSort':
+    worker = new Worker('bitonicSorter.js');
+    break;
+  case 'oddEvenSort':
+    worker = new Worker('oddEvenSorter.js');
+    break;
+  case 'cocktailShakerSort':
+    worker = new Worker('cocktailShakerSorter.js');
+    break;
+  case 'doubleSelectionSort':
+    worker = new Worker('doubleSelectionSorter.js');
+    break;
+  }
+  let arr;
+  switch (select('#arrType').value()) {
+  case 'randArr':
+    arr = randArr();
+    break;
+  case 'fewUniqueArr':
+    arr = fewUniqueArr();
+    break;
+  case 'almostSortedArr':
+    arr = almostSortedArr();
+    break;
+  case 'reversedArr':
+    arr = reversedArr();
+    break;
   }
   worker.onmessage = update;
-  worker.postMessage({arr: genArr()});
+  worker.postMessage({arr});
 }
 
 /* exported setup */
@@ -57,9 +143,13 @@ function newWorker() {
  * p5 setup function
  */
 function setup() {
-  createCanvas(800, 600).parent('canvas-holder');
+  createCanvas(1024, 768).parent('canvas-holder');
 
   select('#sorter').changed(() => {
+    newWorker();
+  });
+
+  select('#arrType').changed(() => {
     newWorker();
   });
 
