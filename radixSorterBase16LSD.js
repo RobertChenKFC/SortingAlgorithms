@@ -24,7 +24,7 @@ function passBack(data, force) {
 
 onmessage = function(e) {
   let arr = e.data.arr;
-  // Radix sort (base 16) starts here
+  // Radix sort (base 16, LSD) starts here
   let mask = 15;
   for (let i = 0; i < 3; ++i, mask <<= 4) {
     const buckets = [];

@@ -72,53 +72,8 @@ function newWorker() {
   if (worker) {
     worker.terminate();
   }
-  switch (select('#sorter').value()) {
-  case 'bubbleSort':
-    worker = new Worker('bubbleSorter.js');
-    break;
-  case 'selectionSort':
-    worker = new Worker('selectionSorter.js');
-    break;
-  case 'insertionSort':
-    worker = new Worker('insertionSorter.js');
-    break;
-  case 'mergeSort':
-    worker = new Worker('mergeSorter.js');
-    break;
-  case 'quickSort':
-    worker = new Worker('quickSorter.js');
-    break;
-  case 'radixSortBase2':
-    worker = new Worker('radixSorterBase2.js');
-    break;
-  case 'radixSortBase16':
-    worker = new Worker('radixSorterBase16.js');
-    break;
-  case 'heapSort':
-    worker = new Worker('heapSorter.js');
-    break;
-  case 'shellSortOriginal':
-    worker = new Worker('shellSorterOriginal.js');
-    break;
-  case 'shellSortMarcinCiura':
-    worker = new Worker('shellSorterMarcinCiura.js');
-    break;
-  case 'gnomeSort':
-    worker = new Worker('gnomeSorter.js');
-    break;
-  case 'bitonicSort':
-    worker = new Worker('bitonicSorter.js');
-    break;
-  case 'oddEvenSort':
-    worker = new Worker('oddEvenSorter.js');
-    break;
-  case 'cocktailShakerSort':
-    worker = new Worker('cocktailShakerSorter.js');
-    break;
-  case 'doubleSelectionSort':
-    worker = new Worker('doubleSelectionSorter.js');
-    break;
-  }
+  const file = select('#sorter').value().replace('Sort', 'Sorter') + '.js';
+  worker = new Worker(file);
   let arr;
   switch (select('#arrType').value()) {
   case 'randArr':

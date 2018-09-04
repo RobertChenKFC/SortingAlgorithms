@@ -24,9 +24,11 @@ function passBack(data, force) {
 
 onmessage = function(e) {
   let arr = e.data.arr;
-  // Radix sort (base 2) starts here
+  // Radix sort (base 2, LSD) starts here
+  const max = arr.reduce((acc, cur) => acc > cur ? acc : cur);
+  const digit = Math.floor(Math.log2(max));
   let mask = 1;
-  for (let i = 0; i < 10; ++i, mask <<= 1) {
+  for (let i = 0; i <= digit; ++i, mask <<= 1) {
     const buckets = [];
     for (let j = 0; j < 2; ++j) {
       buckets.push([]);
