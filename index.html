@@ -11,28 +11,43 @@
 	<body>
 		<div id="canvas-holder"></div>
 		<select id="sorter">
-			<option value="bubbleSort">Bubble Sort</option>
-			<option value="selectionSort">Selection Sort</option>
-			<option value="insertionSort">Insertion Sort</option>
-			<option value="mergeSort">Merge Sort</option>
-			<option value="quickSort">Quick Sort</option>
-			<option value="radixSortBase2LSD">Radix Sort (base 2, LSD)</option>
-			<option value="radixSortBase2MSD">Radix Sort (base 2, MSD)</option>
-			<option value="radixSortBase16LSD">Radix Sort (base 16, LSD)</option>
-			<option value="radixSortBase16MSD">Radix Sort (base 16, MSD)</option>
-			<option value="heapSort">Heap Sort</option>
-			<option value="shellSortOriginal">Shell Sort (original)</option>
-			<option value="shellSortMarcinCiura">Shell Sort (Marcin Ciura's gap sequence)</option>
-			<option value="gnomeSort">Gnome Sort</option>
-			<option value="bitonicSort">Bitonic Sort</option>
-			<option value="oddEvenSort">Odd-Even Sort</option>
-			<option value="cocktailShakerSort">Cocktail Shaker Sort</option>
-			<option value="doubleSelectionSort">Double Selection Sort</option>
+			<optgroup label="Slow Comparison Sorts">
+				<option value="bubbleSort">Bubble Sort</option>
+				<option value="selectionSort">Selection Sort</option>
+				<option value="insertionSort">Insertion Sort</option>
+				<option value="cocktailShakerSort">Cocktail Shaker Sort</option>
+				<option value="doubleSelectionSort">Double Selection Sort</option>
+				<option value="gnomeSort">Gnome Sort</option>
+				<option value="oddEvenSort">Odd-Even Sort</option>
+				<option value="cycleSort">Cycle Sort</option>
+			</optgroup>
+			<optgroup label="Ultra-slow Comparison Sort">
+				<option value="slowSort">Slow Sort</option>
+				<option value="bogoSort">Bogo Sort</option>
+			</optgroup>
+			</optgroup>
+			<optgroup label="Fast Comparison Sorts">
+				<option value="mergeSort">Merge Sort</option>
+				<option value="quickSortLeftmostPivot">Quick Sort (leftmost pivot)</option>
+				<option value="quickSortMedianOfThree">Quick Sort (median of three)</option>
+				<option value="heapSort">Heap Sort</option>
+				<option value="shellSortOriginal">Shell Sort (original)</option>
+				<option value="shellSortMarcinCiura">Shell Sort (Marcin Ciura's gap sequence)</option>
+				<option value="bitonicSort">Bitonic Sort</option>
+				<option value="treeSort">Tree Sort</option>
+				<option value="combSort">Comb Sort</option>
+			<optgroup label="Non Comparison Sorts">
+				<option value="radixSortBase2LSD">Radix Sort (base 2, LSD)</option>
+				<option value="radixSortBase2MSD">Radix Sort (base 2, MSD)</option>
+				<option value="radixSortBase16LSD">Radix Sort (base 16, LSD)</option>
+				<option value="radixSortBase16MSD">Radix Sort (base 16, MSD)</option>
+			</optgroup>
 		</select>
 		<select id="arrType">
 			<option value="randArr">Random Array</option>
 			<option value="fewUniqueArr">Few Unique Array</option>
 			<option value="almostSortedArr">Almost Sorted Array</option>
+			<option value="alreadySortedArr">Already Sorted Array</option>
 			<option value="reversedArr">Reverse Ordered Array</option>
 		</select>
 		<button id="reset">Reset</button>

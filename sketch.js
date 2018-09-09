@@ -1,6 +1,7 @@
 let worker;
 let drawArr;
 let drawMark;
+let drawGrid;
 
 /**
  * A function that generates a random array
@@ -44,6 +45,18 @@ function almostSortedArr() {
 }
 
 /**
+ * A function that generates a sorted array
+ * @return {Number[]} - a sorted array
+ */
+function alreadySortedArr() {
+  const arr = [];
+  for (let i = 0; i < width; ++i) {
+    arr.push(floor(i / width * height));
+  }
+  return arr;
+}
+
+/**
  * A function that generates a reverse ordered array
  * @return {Number[]} - a reverse ordered array
  */
@@ -60,8 +73,15 @@ function reversedArr() {
  * @param {Number[]} e - The data posted from the worker
  */
 function update(e) {
-  drawArr = e.data.arr;
-  drawMark = e.data.mark;
+  if (e.data.arr) {
+    drawArr = e.data.arr;
+    drawMark = e.data.mark;
+    drawGrid = undefined;
+  } else if (e.data.grid) {
+    drawArr = drawMark = undefined;
+    drawGrid = e.data.grid;
+    Object.setPrototypeOf(drawGrid, new BitSet());
+  }
 }
 
 /**
@@ -84,6 +104,9 @@ function newWorker() {
     break;
   case 'almostSortedArr':
     arr = almostSortedArr();
+    break;
+  case 'alreadySortedArr':
+    arr = alreadySortedArr();
     break;
   case 'reversedArr':
     arr = reversedArr();
@@ -132,6 +155,15 @@ function draw() {
         stroke(150);
       }
       line(i + 1, height, i + 1, height - drawArr[i]);
+    }
+  } else if (drawGrid) {
+    stroke(150);
+    for (let i = 0; i < height; ++i) {
+      for (let j = 0; j < width; ++j) {
+        if (drawGrid.get(i * height + j)) {
+          point(j, height - i);
+        }
+      }
     }
   }
 }
