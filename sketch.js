@@ -68,6 +68,30 @@ function reversedArr() {
 }
 
 /**
+ * A function that generates a random array based on Perlin noise
+ * @return {Number[]} - a Perlin noise array
+ */
+function perlinNoiseArr() {
+  const arr = [];
+  for (let i = 0; i < width; ++i) {
+    arr.push(floor(noise(i / (width >> 4)) * height));
+  }
+  return arr;
+}
+
+/**
+ * A function that generates a sine wave array
+ * @return {Number[]} - a sine wave array
+ */
+function sineWaveArr() {
+  const arr = [];
+  for (let i = 0; i < width; ++i) {
+    arr.push((sin(i / width * TWO_PI) + 1) / 2 * height);
+  }
+  return arr;
+}
+
+/**
  * A function that draws when the worker updates
  * @param {Number[]} e - The data posted from the worker
  */
@@ -104,6 +128,12 @@ function newWorker() {
     break;
   case 'reversedArr':
     arr = reversedArr();
+    break;
+  case 'perlinNoiseArr':
+    arr = perlinNoiseArr();
+    break;
+  case 'sineWaveArr':
+    arr = sineWaveArr();
     break;
   }
   worker.onmessage = update;

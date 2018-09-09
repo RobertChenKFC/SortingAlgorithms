@@ -8,7 +8,7 @@ function sleep(t) {
 }
 
 let counter = 0;
-const maxCount = 100000;
+const maxCount = 25000;
 /**
  * A function that passes back data after counter has exceeded maxCount
  * @param {Object} data - The data to pass back
