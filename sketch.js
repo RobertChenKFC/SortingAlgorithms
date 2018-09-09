@@ -1,7 +1,6 @@
 let worker;
 let drawArr;
 let drawMark;
-let drawGrid;
 
 /**
  * A function that generates a random array
@@ -76,11 +75,6 @@ function update(e) {
   if (e.data.arr) {
     drawArr = e.data.arr;
     drawMark = e.data.mark;
-    drawGrid = undefined;
-  } else if (e.data.grid) {
-    drawArr = drawMark = undefined;
-    drawGrid = e.data.grid;
-    Object.setPrototypeOf(drawGrid, new BitSet());
   }
 }
 
@@ -155,15 +149,6 @@ function draw() {
         stroke(150);
       }
       line(i + 1, height, i + 1, height - drawArr[i]);
-    }
-  } else if (drawGrid) {
-    stroke(150);
-    for (let i = 0; i < height; ++i) {
-      for (let j = 0; j < width; ++j) {
-        if (drawGrid.get(i * height + j)) {
-          point(j, height - i);
-        }
-      }
     }
   }
 }
